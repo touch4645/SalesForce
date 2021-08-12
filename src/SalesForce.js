@@ -10,7 +10,15 @@ const REDIRECT_URI = prop.getProperty("REDIRECT_URI");
 const ACCESS_TOKEN_URL = "https://login.salesforce.com/services/oauth2/token";
 
 
-// アクセストークン取得メソッド
+/**
+ * アクセストークンを含んだオブジェクトを取得する関数
+ * 
+ * @param {string} client_id SalesForceの接続アプリケーションから得られるコンシューマ鍵
+ * @param {string} client_secret SalesForceの接続アプリケーションから得られるコンシューマの秘密
+ * @param {string} username SalesForceの管理者ユーザーID
+ * @param {string} password SalesForceの管理者ユーザーパスワード
+ * @returns {Object} authrizationのオブジェクト
+ */
 function authorization(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, username=USERNAME, password=PASSWORD) {
   const response = UrlFetchApp.fetch(
       ACCESS_TOKEN_URL, 
@@ -33,6 +41,11 @@ function authorization(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, usernam
 }
 
 
+/**
+ * SoQLをSalesForceにリクエストする関数
+ * @param {String} q SalesForceのSoQL
+ * @returns {Array<any>} SoQLの結果SalesForceから得られる配列
+ */
 function query(q) {
   q = encodeURIComponent(q).replace(/%20/g, '+');
 
@@ -66,6 +79,9 @@ function query(q) {
 }
 
 
+/**
+ * 全ての初回商談（更新用商談を除く）を取得する関数
+ */
 function getOpportunity() {
   var records = query(
     "SELECT Id, Amount, Name, CloseDate, LastModifiedDate"
