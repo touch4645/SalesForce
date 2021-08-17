@@ -44,7 +44,7 @@ function authorization(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, usernam
 /**
  * SoQLをSalesForceにリクエストする関数
  * @param {String} q SalesForceのSoQL
- * @returns {Array<any>} SoQLの結果SalesForceから得られる配列
+ * @returns {Array<Any>} SoQLの結果SalesForceから得られる配列
  */
 function query(q) {
   q = encodeURIComponent(q).replace(/%20/g, '+');
@@ -81,20 +81,24 @@ function query(q) {
 
 /**
  * 全ての初回商談（更新用商談を除く）を取得する関数
+ * @returns {Array<Object>} 全ての商談オブジェクト
  */
 function getOpportunity() {
+  let result = [];
+
   var records = query(
     "SELECT Id, Amount, Name, CloseDate, LastModifiedDate"
     + " FROM Opportunity"
     + " WHERE NOT Name LIKE '%クール目%'"
   );
-
+  
   for(var i = 0; i < records.length; i++) {
-    Logger.log({
+    result.push({
       id: records[i].Id, //商談ID
       amount: records[i].Amount, //金額
       name: records[i].Name, //商談名
       closeDate: records[i].CloseDate //完了予定日
     });
   }
+  return result;
 }
