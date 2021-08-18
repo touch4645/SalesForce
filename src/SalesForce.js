@@ -50,7 +50,7 @@ function query(q) {
   q = encodeURIComponent(q).replace(/%20/g, '+');
 
   const authInfo = authorization();
-  const response = UrlFetchApp.fetch(authInfo.instance_url + "/services/data/v35.0/query/?q=" + q, {
+  const response = UrlFetchApp.fetch(authInfo.instance_url + "/services/data/v52.0/query/?q=" + q, {
     "method" : "GET",
     "headers" : {
       "Authorization": "Bearer " + authInfo.access_token
@@ -83,22 +83,26 @@ function query(q) {
  * 全ての初回商談（更新用商談を除く）を取得する関数
  * @returns {Array<Object>} 全ての商談オブジェクト
  */
-function getOpportunity() {
-  let result = [];
-
-  var records = query(
+function getAllOpportunities() {
+  const records = query(
     "SELECT Id, Amount, Name, CloseDate, LastModifiedDate"
     + " FROM Opportunity"
     + " WHERE NOT Name LIKE '%クール目%'"
   );
-  
-  for(var i = 0; i < records.length; i++) {
-    result.push({
-      id: records[i].Id, //商談ID
-      amount: records[i].Amount, //金額
-      name: records[i].Name, //商談名
-      closeDate: records[i].CloseDate //完了予定日
-    });
-  }
-  return result;
+  return records;
+}
+
+
+/**
+ * 全ての取引先を取得する関数
+ * @returns {Array<Object>} 全ての取引先オブジェクト
+ */
+ function getAllParentAccounts() {
+  const records = query(
+    "SELECT Id, BillingAddress, OwnerId, Name"
+    + " FROM Account"
+    + " WHERE ParentId IS NOT NULL"
+  );
+
+  return records;
 }
