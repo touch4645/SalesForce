@@ -59,7 +59,11 @@ function query(q) {
   });
   
   const queryResult = JSON.parse(response.getContentText());
+
   let result = queryResult.records;
+  if (result === undefined) {
+    throw new Error( JSON.stringify(queryResult[0]) );
+  }
 
   let nextRecordsUrl = queryResult.nextRecordsUrl;
 
@@ -101,8 +105,7 @@ function getAllOpportunities() {
   const records = query(
     "SELECT Id, BillingAddress, OwnerId, Name"
     + " FROM Account"
-    + " WHERE ParentId IS NOT NULL"
+    + " WHERE ParentId != NULL"
   );
-
   return records;
 }
