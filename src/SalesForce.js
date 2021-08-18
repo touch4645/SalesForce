@@ -101,7 +101,7 @@ function getAllOpportunities() {
  * 全ての取引先を取得する関数
  * @returns {Array<Object>} 全ての取引先オブジェクト
  */
- function getAllParentAccounts() {
+function getAllParentAccounts() {
   const records = query(
     "SELECT Id, BillingAddress, OwnerId, Name"
     + " FROM Account"
