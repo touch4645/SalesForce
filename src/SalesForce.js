@@ -103,7 +103,7 @@ function getAllOpportunities() {
  */
 function getAllParentAccounts() {
   const records = query(
-    "SELECT Id, BillingAddress, OwnerId, Name"
+    "SELECT Id, BillingAddress, OwnerId, Name, Phone, Financial_mail_address__c"
     + " FROM Account"
     + " WHERE ParentId != NULL"
   );
