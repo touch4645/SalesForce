@@ -13,7 +13,7 @@ function createRecord(objectApiName, data) {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + authInfo.access_token
         },
-        "payload" : JSON.parse(data),
+        "payload" : JSON.stringify(data),
         "muteHttpExceptions": true
     });
 
@@ -42,15 +42,14 @@ function createRecord(objectApiName, data) {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + authInfo.access_token
         },
-        "payload" : JSON.parse(data),
+        "payload" : JSON.stringify(data),
         "muteHttpExceptions": true
     });
 
-    const responseJson = JSON.parse(response.getContentText());
-    if (responseJson.success === true) {
-        return responseJson;
+    if (response.getResponseCode() < 300) {
+        return response;
     } else {
-        throw new Error( JSON.stringify(responseJson) );
+        throw new Error( JSON.stringify( response.getContentText() ) );
     }
 }
 
@@ -72,10 +71,9 @@ function createRecord(objectApiName, data) {
         "muteHttpExceptions": true
     });
 
-    const responseJson = JSON.parse(response.getContentText());
-    if (responseJson.success === true) {
-        return responseJson;
+    if (response.getResponseCode() < 300) {
+        return response;
     } else {
-        throw new Error( JSON.stringify(responseJson) );
+        throw new Error( JSON.stringify( response.getContentText() ) );
     }
 }
