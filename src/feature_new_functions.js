@@ -1,17 +1,19 @@
 /**
- * SoQLをSalesForceにリクエストする関数
- * @param {String} q SalesForceのSoQL
- * @returns {Array<Any>} SoQLの結果SalesForceから得られる配列
+ * SalesForceに新規レコードを作成する関数
+ * sObject Basic Informationを利用しています
+ * @param {String} objectApiName レコードを追加したいSalesForceオブジェクトのAPI名
+ * @param {Object} data 追加するデータのJSON
+ * @returns {Object<Any>} SalesForceからのレスポンス
  */
-function createRecord(ObjectApiName, data) {
+function createRecord(objectApiName, data) {
     const authInfo = authorization();
-    const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${ObjectApiName}/`, {
+    const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${objectApiName}/`, {
         "method" : "POST",
         "headers" : {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + authInfo.access_token
         },
-        "payload" : data,
+        "payload" : JSON.parse(data),
         "muteHttpExceptions": true
     });
 
