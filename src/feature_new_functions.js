@@ -23,4 +23,59 @@ function createRecord(objectApiName, data) {
     } else {
         throw new Error( JSON.stringify(response) );
     }
-  }
+}
+
+
+/**
+ * SalesForceのレコードを更新する関数
+ * sObject Basic Informationを利用しています
+ * @param {String} objectApiName 更新したいSalesForceオブジェクトのAPI名
+ * @param {String} recordId 更新したいSalesForceレコードのAPI名
+ * @param {Object} data 更新するデータのJSON
+ * @returns {Object<Any>} SalesForceからのレスポンス
+ */
+ function createRecord(objectApiName, recordId, data) {
+    const authInfo = authorization();
+    const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${objectApiName}/${recordId}`, {
+        "method" : "PATCH",
+        "headers" : {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + authInfo.access_token
+        },
+        "payload" : JSON.parse(data),
+        "muteHttpExceptions": true
+    });
+
+    const response = JSON.parse(response.getContentText());
+    if (response.success === true) {
+        return response;
+    } else {
+        throw new Error( JSON.stringify(response) );
+    }
+}
+
+
+/**
+ * SalesForceのレコードを更新する関数
+ * sObject Basic Informationを利用しています
+ * @param {String} objectApiName 更新したいSalesForceオブジェクトのAPI名
+ * @param {String} recordId 更新したいSalesForceレコードのAPI名
+ * @returns {Object<Any>} SalesForceからのレスポンス
+ */
+ function createRecord(objectApiName, recordId) {
+    const authInfo = authorization();
+    const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${objectApiName}/${recordId}`, {
+        "method" : "DELETE",
+        "headers" : {
+            "Authorization": "Bearer " + authInfo.access_token
+        },
+        "muteHttpExceptions": true
+    });
+
+    const response = JSON.parse(response.getContentText());
+    if (response.success === true) {
+        return response;
+    } else {
+        throw new Error( JSON.stringify(response) );
+    }
+}
