@@ -17,7 +17,7 @@ const ACCESS_TOKEN_URL = "https://login.salesforce.com/services/oauth2/token";
  * @param {string} client_secret SalesForceの接続アプリケーションから得られるコンシューマの秘密
  * @param {string} username SalesForceの管理者ユーザーID
  * @param {string} password SalesForceの管理者ユーザーパスワード
- * @returns {Object} authrizationのオブジェクト
+ * @returns {Object} authorizationのオブジェクト
  */
 function authorization(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, username=USERNAME, password=PASSWORD) {
   const response = UrlFetchApp.fetch(
@@ -89,7 +89,7 @@ function query(q) {
  */
 function getAllOpportunities() {
   const records = query(
-    "SELECT Id, Amount, Name, CloseDate, LastModifiedDate"
+    "SELECT Id, Amount, Name, CloseDate, LastModifiedDate, closing__c"
     + " FROM Opportunity"
     + " WHERE NOT Name LIKE '%クール目%'"
   );
@@ -101,11 +101,36 @@ function getAllOpportunities() {
  * 全ての取引先を取得する関数
  * @returns {Array<Object>} 全ての取引先オブジェクト
  */
- function getAllParentAccounts() {
+function getAllParentAccounts() {
   const records = query(
-    "SELECT Id, BillingAddress, OwnerId, Name"
+    "SELECT Id, BillingAddress, OwnerId, Name, Phone, Financial_mail_address__c"
     + " FROM Account"
     + " WHERE ParentId != NULL"
+  );
+  return records;
+}
+
+
+/**
+ * 全ての取引先責任者を取得する関数
+ * @returns {Array<Object>} 全ての取引先オブジェクト
+ */
+function getAllContacts() {
+  const records = query(
+    "SELECT Id, Name, Name_rubi__c, MobilePhone, Email"
+    + "FROM Contact"
+  );
+  return records;
+}
+
+/**
+ * 全ての契約を取得する関数
+ * @returns {Array<Object>} 全ての取引先オブジェクト
+ */
+function getAllContracts() {
+  const records = query(
+    "SELECT Id, StartDate, Delivery_date__c"
+    + "FROM Contract"
   );
   return records;
 }
