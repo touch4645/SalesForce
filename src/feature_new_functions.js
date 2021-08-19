@@ -34,7 +34,7 @@ function createRecord(objectApiName, data) {
  * @param {Object} data 更新するデータのJSON
  * @returns {Object<Any>} SalesForceからのレスポンス
  */
- function createRecord(objectApiName, recordId, data) {
+ function updateRecord(objectApiName, recordId, data) {
     const authInfo = authorization();
     const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${objectApiName}/${recordId}`, {
         "method" : "PATCH",
@@ -62,7 +62,7 @@ function createRecord(objectApiName, data) {
  * @param {String} recordId 更新したいSalesForceレコードのAPI名
  * @returns {Object<Any>} SalesForceからのレスポンス
  */
- function createRecord(objectApiName, recordId) {
+ function deleteRecord(objectApiName, recordId) {
     const authInfo = authorization();
     const response = UrlFetchApp.fetch(authInfo.instance_url + `/services/data/v52.0/sobjects/${objectApiName}/${recordId}`, {
         "method" : "DELETE",
