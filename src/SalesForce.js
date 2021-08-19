@@ -123,3 +123,14 @@ function getAllContacts() {
   return records;
 }
 
+/**
+ * 全ての契約を取得する関数
+ * @returns {Array<Object>} 全ての取引先オブジェクト
+ */
+function getAllContracts() {
+  const records = query(
+    "SELECT Id, StartDate, Delivery_date__c"
+    + "FROM Contract"
+  );
+  return records;
+}
