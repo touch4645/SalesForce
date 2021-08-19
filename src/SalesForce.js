@@ -89,7 +89,7 @@ function query(q) {
  */
 function getAllOpportunities() {
   const records = query(
-    "SELECT Id, Amount, Name, CloseDate, LastModifiedDate"
+    "SELECT Id, Amount, Name, CloseDate, LastModifiedDate, closing__c"
     + " FROM Opportunity"
     + " WHERE NOT Name LIKE '%クール目%'"
   );
