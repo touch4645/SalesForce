@@ -54,6 +54,7 @@ function query(q) {
     "method" : "GET",
     "headers" : {
       "Authorization": "Bearer " + authInfo.access_token
+
     },
     "muteHttpExceptions": true
   });
@@ -98,8 +99,8 @@ function getAllOpportunities() {
 
 
 /**
- * 全ての取引先を取得する関数
- * @returns {Array<Object>} 全ての取引先オブジェクト
+ * 全ての親取引先を取得する関数
+ * @returns {Array<Object>} 全ての親取引先オブジェクト
  */
 function getAllParentAccounts() {
   const records = query(
@@ -113,7 +114,7 @@ function getAllParentAccounts() {
 
 /**
  * 全ての取引先責任者を取得する関数
- * @returns {Array<Object>} 全ての取引先オブジェクト
+ * @returns {Array<Object>} 全ての取引先責任者オブジェクト
  */
 function getAllContacts() {
   const records = query(
@@ -125,7 +126,7 @@ function getAllContacts() {
 
 /**
  * 全ての契約を取得する関数
- * @returns {Array<Object>} 全ての取引先オブジェクト
+ * @returns {Array<Object>} 全ての契約オブジェクト
  */
 function getAllContracts() {
   const records = query(
