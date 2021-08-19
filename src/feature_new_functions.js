@@ -17,11 +17,11 @@ function createRecord(objectApiName, data) {
         "muteHttpExceptions": true
     });
 
-    const response = JSON.parse(response.getContentText());
-    if (response.success === true) {
-        return response;
+    const responseJson = JSON.parse(response.getContentText());
+    if (responseJson.success === true) {
+        return responseJson;
     } else {
-        throw new Error( JSON.stringify(response) );
+        throw new Error( JSON.stringify(responseJson) );
     }
 }
 
@@ -46,11 +46,11 @@ function createRecord(objectApiName, data) {
         "muteHttpExceptions": true
     });
 
-    const response = JSON.parse(response.getContentText());
-    if (response.success === true) {
-        return response;
+    const responseJson = JSON.parse(response.getContentText());
+    if (responseJson.success === true) {
+        return responseJson;
     } else {
-        throw new Error( JSON.stringify(response) );
+        throw new Error( JSON.stringify(responseJson) );
     }
 }
 
@@ -72,10 +72,10 @@ function createRecord(objectApiName, data) {
         "muteHttpExceptions": true
     });
 
-    const response = JSON.parse(response.getContentText());
-    if (response.success === true) {
-        return response;
+    const responseJson = JSON.parse(response.getContentText());
+    if (responseJson.success === true) {
+        return responseJson;
     } else {
-        throw new Error( JSON.stringify(response) );
+        throw new Error( JSON.stringify(responseJson) );
     }
 }
