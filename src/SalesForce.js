@@ -118,7 +118,7 @@ function getAllParentAccounts() {
 function getAllContacts() {
   const records = query(
     "SELECT Id, Name, Name_rubi__c, MobilePhone, Email"
-    + "FROM Contact"
+    + " FROM Contact"
   );
   return records;
 }
@@ -130,7 +130,7 @@ function getAllContacts() {
 function getAllContracts() {
   const records = query(
     "SELECT Id, StartDate, Delivery_date__c"
-    + "FROM Contract"
+    + " FROM Contract"
   );
   return records;
 }
