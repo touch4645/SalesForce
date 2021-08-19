@@ -17,7 +17,7 @@ const ACCESS_TOKEN_URL = "https://login.salesforce.com/services/oauth2/token";
  * @param {string} client_secret SalesForceの接続アプリケーションから得られるコンシューマの秘密
  * @param {string} username SalesForceの管理者ユーザーID
  * @param {string} password SalesForceの管理者ユーザーパスワード
- * @returns {Object} authrizationのオブジェクト
+ * @returns {Object} authorizationのオブジェクト
  */
 function authorization(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, username=USERNAME, password=PASSWORD) {
   const response = UrlFetchApp.fetch(
@@ -109,3 +109,17 @@ function getAllParentAccounts() {
   );
   return records;
 }
+
+
+/**
+ * 全ての取引先責任者を取得する関数
+ * @returns {Array<Object>} 全ての取引先オブジェクト
+ */
+function getAllContacts() {
+  const records = query(
+    "SELECT Id, Name, Name_rubi__c, MobilePhone, Email"
+    + "FROM Contact"
+  );
+  return records;
+}
+
