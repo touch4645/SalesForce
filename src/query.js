@@ -87,7 +87,7 @@ function getAllContacts() {
  */
 function getAllContracts() {
   const records = query(
-    "SELECT Id, StartDate, Delivery_date__c"
+    "SELECT Id, ContractNumber, StartDate, EndDate, ContractTerm, Delivery_date__c, StageName__c"
     + " FROM Contract"
   );
   return records;
